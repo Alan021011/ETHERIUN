@@ -1,0 +1,151 @@
+** start of index.html **
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Palíndromos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Verificador de Palíndromos</h1>
+        <p>Ingresa una palabra o frase para verificar</p>
+        
+        <label for="text-input">Escribe el texto:</label>
+        <input type="text" id="text-input" placeholder="Escribe una palabra...">
+        <button id="check-btn">Verificar</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+** end of index.html **
+
+** start of styles.css **
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+h1 {
+    color: blue;
+    font-size: 24px;
+}
+
+p {
+    color: gray;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#text-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid blue;
+    margin-bottom: 15px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#check-btn {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#check-btn:hover {
+    background-color: darkblue;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    min-height: 20px;
+    font-weight: bold;
+}
+
+#result.palindrome {
+    background-color: lightgreen;
+    color: green;
+}
+
+#result.not-palindrome {
+    background-color: lightcoral;
+    color: red;
+}
+
+** end of styles.css **
+
+** start of script.js **
+
+var input = document.getElementById('text-input');
+var boton = document.getElementById('check-btn');
+var resultado = document.getElementById('result');
+
+function limpiarTexto(texto) {
+    return texto.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+}
+
+function esPalindromo(texto) {
+    var limpio = limpiarTexto(texto);
+    var alReves = limpio.split('').reverse().join('');
+    return limpio === alReves;
+}
+
+function verificar() {
+    var textoIngresado = input.value;
+    
+    if (textoIngresado === '') {
+        alert('Please input a value');
+        return;
+    }
+    
+    if (esPalindromo(textoIngresado)) {
+        resultado.innerHTML = textoIngresado + ' is a palindrome';
+        resultado.className = 'palindrome';
+    } else {
+        resultado.innerHTML = textoIngresado + ' is not a palindrome';
+        resultado.className = 'not-palindrome';
+    }
+}
+
+boton.onclick = verificar;
+
+input.onkeypress = function(e) {
+    if (e.key === 'Enter') {
+        verificar();
+    }
+};
+
+input.oninput = function() {
+    resultado.innerHTML = '';
+    resultado.className = '';
+};
+
+** end of script.js **
+
